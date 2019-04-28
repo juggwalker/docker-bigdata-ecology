@@ -1,1 +1,0 @@
-# docker-bigdata-ecology
