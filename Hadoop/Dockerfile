@@ -7,10 +7,9 @@ MAINTAINER jugg <23335096@qq.com>
 ADD sources.list /etc/apt/
 
 
-
 # 安装必要的工具并建立必要的文件夹
 RUN apt-get update && apt-get install -y sudo
-RUN sudo apt-get install -y ssh rsync vim
+RUN sudo apt-get install -y openssh-server rsync vim
 ENV HADOOP_TMP_DIR /data/hadoop/tmp
 ENV HADOOP_NAMENODE_DIR /data/hadoop/hdfs/namenode
 ENV HADOOP_DATANODE_DIR /data/hadoop/hdfs/datanode
@@ -21,6 +20,9 @@ RUN sudo mkdir -p $HADOOP_TMP_DIR $HADOOP_NAMENODE_DIR $HADOOP_DATANODE_DIR
 RUN sudo sed -i 's/PermitRootLogin prohibit-password/ PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sudo sed -i 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config
 RUN sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/' /etc/ssh/ssh_config
+
+# 解决root登陆问题
+RUN sudo sed -i 's/ mesg n/ tty -s && mesg n/' /root/.profile
 
 # 配置免密码登录
 RUN sudo ssh-keygen -t rsa -f ~/.ssh/id_rsa
@@ -35,7 +37,6 @@ ENV PATH $JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
 
 ENV LD_LIBRARY_PATH $HADOOP_HOME/lib/native
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
-ENV YARN_CONF_DIR $HADOOP_HOME/etc/hadoop
 ENV CLASSPATH .:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 
