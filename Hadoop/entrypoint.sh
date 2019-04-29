@@ -4,6 +4,6 @@ set -eu
 /usr/sbin/init
 #/usr/sbin/sshd -D
 
-systemctl restart sshd.service
+systemctl start sshd.service
 
 exec "$@"
