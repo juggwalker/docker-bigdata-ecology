@@ -14,6 +14,12 @@ ENV HADOOP_NAMENODE_DIR /data/hadoop/hdfs/namenode
 ENV HADOOP_DATANODE_DIR /data/hadoop/hdfs/datanode
 RUN mkdir -p $HADOOP_TMP_DIR $HADOOP_NAMENODE_DIR $HADOOP_DATANODE_DIR
 
+# 生成sshd的HOSTKEY
+RUN ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
+RUN ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
+
 
 # 修改sshd_config以及ssh_config 文件
 RUN sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config
