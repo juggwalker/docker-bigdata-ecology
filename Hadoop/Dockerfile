@@ -69,8 +69,8 @@ RUN bin/hdfs namenode -format
 
 
 # 将启动脚本start.sh放置在合适路径
-COPY start.sh /usr/local/start.sh
-RUN chmod 755 /usr/local/start.sh
+COPY start.sh /usr/local/cmd.sh
+RUN chmod 755 /usr/local/cmd.sh
 
 
 # 对外暴露22,9870,8088端口. 9870查看HDFS情况，8088查看Yarn运行情况
@@ -82,4 +82,4 @@ RUN set -ex; \
     chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["/usr/local/start.sh"]
+CMD ["/usr/local/cmd.sh"]
