@@ -22,7 +22,8 @@ RUN sudo sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/
 RUN echo "AuthorizedKeysFile     .ssh/authorized_keys" >> /etc/ssh/sshd_config
 RUN sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/' /etc/ssh/ssh_config
 
-RUN sudo sed -i 's/mesg n || true/tty -s && mesg n/' /root/.profile
+# 解决ubuntu下的mesg: ttyname failed: Inappropriate ioctl for device  问题
+RUN sed -i '$d' /root/.profile && echo 'tty -s && mesg n' >> /root/.profile
 
 
 # 配置免密码登录
