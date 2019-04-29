@@ -44,11 +44,11 @@ ADD ./hadoop-3.2.0.tar.gz /usr/local/hadoop
 ADD ./jdk-8u211-linux-x64.tar.gz /usr/local/java
 
 # 配置hadoop
-COPY etc/hadoop/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh
-COPY etc/hadoop/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
-COPY etc/hadoop/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
-COPY etc/hadoop/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml
-COPY etc/hadoop/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml
+COPY conf/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+COPY conf/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
+COPY conf/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+COPY conf/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml
+COPY conf/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml
 RUN sudo chmod +x $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 
 
