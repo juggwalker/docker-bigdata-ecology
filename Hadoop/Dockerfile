@@ -70,5 +70,10 @@ RUN chmod 755 /usr/local/start.sh
 # 对外暴露22,50070,8088端口. 50070查看HDFS情况，8088查看Yarn运行情况
 EXPOSE 22 50070 8088
 
+COPY entrypoint.sh /usr/local/bin/
 
+RUN set -ex; \
+    chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/usr/local/start.sh"]
