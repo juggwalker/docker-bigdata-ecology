@@ -25,11 +25,11 @@
    </property>
     <property>
         <name>dfs.namenode.name.dir</name>
-        <value>/data/hadoop/namenode</value>
+        <value>/data/hadoop/hdfs/namenode</value>
     </property>
     <property>
         <name>dfs.datanode.data.dir</name>
-        <value>/data/hadoop/datanode</value>
+        <value>/data/hadoop/hdfs/datanode</value>
     </property>
 
 </configuration>
