@@ -1,34 +1,30 @@
-FROM ubuntu:18.04
+FROM centos:7
 
 # 作者信息
 MAINTAINER jugg <23335096@qq.com>
 
-# 复制本地文件到镜像
-ADD sources.list /etc/apt/
-
+RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+&& wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+&& yum makecache
 
 # 安装必要的工具并建立必要的文件夹
-RUN apt-get update && apt-get install -y sudo
-RUN sudo apt-get install -y openssh-server rsync vim
+RUN yum install -y rsync vim
 ENV HADOOP_TMP_DIR /data/hadoop/tmp
 ENV HADOOP_NAMENODE_DIR /data/hadoop/hdfs/namenode
 ENV HADOOP_DATANODE_DIR /data/hadoop/hdfs/datanode
-RUN sudo mkdir -p $HADOOP_TMP_DIR $HADOOP_NAMENODE_DIR $HADOOP_DATANODE_DIR
+RUN mkdir -p $HADOOP_TMP_DIR $HADOOP_NAMENODE_DIR $HADOOP_DATANODE_DIR
 
 
 # 修改sshd_config以及ssh_config 文件
-RUN sudo sed -i 's/PermitRootLogin prohibit-password/ PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sudo sed -i 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config
-RUN sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/' /etc/ssh/ssh_config
-
-# 解决root登陆问题
-RUN sudo sed -i 's/ mesg n/ tty -s && mesg n/' /root/.profile
+RUN sed -i 's/PermitRootLogin prohibit-password/ PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config
+RUN sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/' /etc/ssh/ssh_config
 
 # 配置免密码登录
-RUN sudo ssh-keygen -t rsa -f ~/.ssh/id_rsa
-RUN sudo cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-RUN sudo chmod 0600 ~/.ssh/authorized_keys
-RUN sudo chmod 0700 ~/.ssh
+RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
+RUN cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+RUN chmod 0600 ~/.ssh/authorized_keys
+RUN chmod 0700 ~/.ssh
 
 # 配置环境变量
 ENV JAVA_HOME /usr/local/java/jdk1.8.0_211
@@ -50,23 +46,23 @@ COPY conf/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
 COPY conf/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 COPY conf/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml
 COPY conf/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml
-RUN sudo chmod +x $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+RUN chmod +x $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 
 
 # 格式化Hadoop HDFS的namenode
 WORKDIR $HADOOP_NAMENODE_DIR
-RUN sudo rm -rf *
+RUN rm -rf *
 WORKDIR $HADOOP_DATANODE_DIR
-RUN sudo rm -rf *
+RUN rm -rf *
 WORKDIR $HADOOP_TMP_DIR
-RUN sudo rm -rf *
+RUN rm -rf *
 WORKDIR $HADOOP_HOME
-RUN sudo bin/hdfs namenode -format
+RUN bin/hdfs namenode -format
 
 
 # 将启动脚本start.sh放置在合适路径
 COPY start.sh /usr/local/start.sh
-RUN sudo chmod 755 /usr/local/start.sh
+RUN chmod 755 /usr/local/start.sh
 
 
 # 对外暴露22,50070,8088端口. 50070查看HDFS情况，8088查看Yarn运行情况
