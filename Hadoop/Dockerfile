@@ -69,7 +69,7 @@ RUN bin/hdfs namenode -format
 
 
 # 将启动脚本start.sh放置在合适路径
-COPY start.sh /usr/local/cmd.sh
+COPY cmd.sh /usr/local/cmd.sh
 RUN chmod 755 /usr/local/cmd.sh
 
 
