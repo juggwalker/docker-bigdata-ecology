@@ -1,7 +1,9 @@
 #!/bin/sh
 set -eu
 
-/usr/sbin/sshd -D
+/usr/sbin/init
+#/usr/sbin/sshd -D
 
+systemctl restart sshd.service
 
 exec "$@"
