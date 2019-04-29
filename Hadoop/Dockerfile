@@ -22,6 +22,8 @@ RUN sudo sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/
 RUN echo "AuthorizedKeysFile     .ssh/authorized_keys" >> /etc/ssh/sshd_config
 RUN sudo sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/' /etc/ssh/ssh_config
 
+RUN sudo sed -i 's/mesg n || true/tty -s && mesg n/' /root/.profile
+
 
 # 配置免密码登录
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
