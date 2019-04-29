@@ -17,6 +17,11 @@ ENV HADOOP_NAMENODE_DIR /data/hadoop/hdfs/namenode
 ENV HADOOP_DATANODE_DIR /data/hadoop/hdfs/datanode
 RUN mkdir -p $HADOOP_TMP_DIR $HADOOP_NAMENODE_DIR $HADOOP_DATANODE_DIR
 
+# 设置时区（为了获取/usr/share/zoneinfo）
+RUN apt-get install -y tzdata \
+&& rm /etc/localtime \
+&& ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+&& date
 
 # 修改sshd_config以及ssh_config 文件
 RUN sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
