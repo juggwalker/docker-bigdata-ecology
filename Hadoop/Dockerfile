@@ -40,16 +40,16 @@ ENV CLASSPATH .:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 
 # 将下载并配置好的Hadoop、Java、Spark以及Zeppelin放在适当位置
-#ADD ./hadoop-3.2.0.tar.gz /usr/local/hadoop
-#ADD ./jdk-8u211-linux-x64.tar.gz /usr/local/java
+ADD ./hadoop-3.2.0.tar.gz /usr/local/hadoop
+ADD ./jdk-8u211-linux-x64.tar.gz /usr/local/java
 
 # 配置hadoop
-#COPY conf/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh
-#COPY conf/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
-#COPY conf/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
-#COPY conf/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml
-#COPY conf/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml
-#RUN chmod +x $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+COPY conf/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+COPY conf/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml
+COPY conf/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+COPY conf/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml
+COPY conf/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml
+RUN chmod +x $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 
 
 # 格式化Hadoop HDFS的namenode
@@ -59,8 +59,8 @@ WORKDIR $HADOOP_DATANODE_DIR
 RUN rm -rf *
 WORKDIR $HADOOP_TMP_DIR
 RUN rm -rf *
-#WORKDIR $HADOOP_HOME
-#RUN bin/hdfs namenode -format
+WORKDIR $HADOOP_HOME
+RUN bin/hdfs namenode -format
 
 
 # 将启动脚本start.sh放置在合适路径
