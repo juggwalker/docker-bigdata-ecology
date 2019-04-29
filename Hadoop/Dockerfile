@@ -34,7 +34,7 @@ RUN chmod 0700 ~/.ssh
 
 # 配置环境变量
 ENV JAVA_HOME /usr/local/java/jdk1.8.0_211
-ENV HADOOP_HOME /usr/local/hadoop/hadoop-2.9.2
+ENV HADOOP_HOME /usr/local/hadoop/hadoop-3.2.0
 ENV PATH $JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
 
 ENV LD_LIBRARY_PATH $HADOOP_HOME/lib/native
@@ -43,7 +43,7 @@ ENV CLASSPATH .:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 
 # 将下载并配置好的Hadoop、Java、Spark以及Zeppelin放在适当位置
-ADD ./hadoop-2.9.2.tar.gz /usr/local/hadoop
+ADD ./hadoop-3.2.0.tar.gz /usr/local/hadoop
 ADD ./jdk-8u211-linux-x64.tar.gz /usr/local/java
 
 # 配置hadoop
