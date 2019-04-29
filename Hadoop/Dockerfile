@@ -8,7 +8,7 @@ RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backu
 && yum makecache
 
 # 安装必要的工具并建立必要的文件夹
-RUN yum install -y rsync vim
+RUN yum install -y rsync vim openssh-server
 ENV HADOOP_TMP_DIR /data/hadoop/tmp
 ENV HADOOP_NAMENODE_DIR /data/hadoop/hdfs/namenode
 ENV HADOOP_DATANODE_DIR /data/hadoop/hdfs/datanode
