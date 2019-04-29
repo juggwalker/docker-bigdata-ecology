@@ -8,7 +8,7 @@ RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backu
 && yum makecache
 
 # 安装必要的工具并建立必要的文件夹
-RUN yum install -y rsync vim openssl openssh-server
+RUN yum install -y rsync vim openssl openssh-server openssh-clients
 ENV HADOOP_TMP_DIR /data/hadoop/tmp
 ENV HADOOP_NAMENODE_DIR /data/hadoop/hdfs/namenode
 ENV HADOOP_DATANODE_DIR /data/hadoop/hdfs/datanode
@@ -16,9 +16,11 @@ RUN mkdir -p $HADOOP_TMP_DIR $HADOOP_NAMENODE_DIR $HADOOP_DATANODE_DIR
 
 
 # 修改sshd_config以及ssh_config 文件
-RUN sed -i 's/PermitRootLogin prohibit-password/ PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -i 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config
-RUN sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/' /etc/ssh/ssh_config
+RUN sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config
+RUN echo 'RSAAuthentication yes' >> /etc/ssh/sshd_config
+RUN echo 'PubkeyAuthentication yes' >> /etc/ssh/sshd_config
+RUN sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/' /etc/ssh/ssh_config
 
 # 配置免密码登录
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa
