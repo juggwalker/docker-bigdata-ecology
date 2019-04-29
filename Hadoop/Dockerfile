@@ -8,7 +8,7 @@ ADD sources.list /etc/apt/
 # 安装必要的工具并建立必要的文件夹
 #RUN yum install -y rsync vim openssl openssh-server openssh-clients
 RUN apt-get update && apt-get install -y sudo
-RUN sudo apt-get install -y openssh-server rsync vim supervisor
+RUN sudo apt-get install -y openssh-server rsync vim iputils-ping net-tools
 RUN mkdir -p /var/run/sshd /root/.ssh
 ENV HADOOP_TMP_DIR /data/hadoop/tmp
 ENV HADOOP_NAMENODE_DIR /data/hadoop/hdfs/namenode
