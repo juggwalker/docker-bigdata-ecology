@@ -20,7 +20,7 @@
 <configuration>
  <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://singlenode​:9000</value>
+    <value>hdfs://hadoop-master:9000</value>
     <description>HDFS的URI，文件系统://namenode标识:端口号</description>
 </property>
 

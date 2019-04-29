@@ -2,8 +2,8 @@
 
 echo ""
 
-echo -e "\nbuild hadoop-spark-zeppelin image\n"
-sudo docker build -t hsz:0.0.1 .
+echo -e "\nbuild hadoop-master image. base Hadoop3.2.0 \n"
+sudo docker build -t hadoop:master .
 
 
 echo ""
