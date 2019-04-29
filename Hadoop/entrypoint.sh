@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-systemctl start sshd.service
+/usr/sbin/sshd -D
 
 
 exec "$@"
