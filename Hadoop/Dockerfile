@@ -40,8 +40,8 @@ ENV CLASSPATH .:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 
 # 将下载并配置好的Hadoop、Java、Spark以及Zeppelin放在适当位置
-ADD ./packages/hadoop-3.2.0.tar.gz /usr/local/hadoop
-ADD ./packages/jdk-8u211-linux-x64.tar.gz /usr/local/java
+ADD ./hadoop-3.2.0.tar.gz /usr/local/hadoop
+ADD ./jdk-8u211-linux-x64.tar.gz /usr/local/java
 
 # 配置hadoop
 COPY etc/hadoop/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh
