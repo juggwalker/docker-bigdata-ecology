@@ -69,8 +69,4 @@
 # - OPENBLAS_NUM_THREADS=1   Disable multi-threading of OpenBLAS
 
 
-export JAVA_HOME=/usr/local/java/jdk1.8.0_211 #Java环境变量
-export SPARK_WORKING_MEMORY=521m #每一个worker节点上可用的最大内存
-export SPARK_MASTER_IP=singlenode​ #驱动器节点IP
-export HADOOP_HOME=/usr/local/hadoop/hadoop-3.2.0 #Hadoop路径
-export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop #Hadoop配置目录
+
