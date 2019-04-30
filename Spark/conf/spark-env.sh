@@ -69,4 +69,5 @@
 # - OPENBLAS_NUM_THREADS=1   Disable multi-threading of OpenBLAS
 
 
-
+export JAVA_HOME=/usr/local/java/jdk1.8.0_211 #Java环境变量
+export SPARK_MASTER_HOST=127.0.0.1
