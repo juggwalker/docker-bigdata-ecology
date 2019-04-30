@@ -70,5 +70,8 @@ COPY entrypoint.sh /usr/local/bin/
 RUN set -ex; \
     chmod +x /usr/local/bin/entrypoint.sh
 
+# 切换到spark目录
+WORKDIR $SPARK_HOME
+
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/usr/local/cmd.sh"]
