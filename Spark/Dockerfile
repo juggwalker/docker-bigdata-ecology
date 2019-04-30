@@ -57,7 +57,7 @@ COPY conf/spark-env.sh $SPARK_HOME/conf/spark-env.sh
 RUN sudo chmod +x $SPARK_HOME/conf/spark-env.sh
 
 
-# 将启动脚本start.sh放置在合适路径
+# 将启动脚本cmd.sh放置在合适路径
 COPY cmd.sh /usr/local/cmd.sh
 RUN chmod 755 /usr/local/cmd.sh
 
