@@ -51,9 +51,9 @@ ADD ./spark-$INSTALL_SPARK_VERSION-bin-hadoop2.7.tgz /usr/local/spark
 
 
 # 配置spark
-COPY etc/spark/slaves $SPARK_HOME/conf/slaves
-COPY etc/spark/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
-COPY etc/spark/spark-env.sh $SPARK_HOME/conf/spark-env.sh
+COPY conf/slaves $SPARK_HOME/conf/slaves
+COPY conf/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
+COPY conf/spark-env.sh $SPARK_HOME/conf/spark-env.sh
 RUN sudo chmod +x $SPARK_HOME/conf/spark-env.sh
 
 
