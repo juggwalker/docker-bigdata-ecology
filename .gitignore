@@ -1,5 +1,6 @@
 .git
 .idea/
+tmpdata
 *.tar.gz
 *.tgz
 
